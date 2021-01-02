@@ -31,6 +31,7 @@ namespace ListPoker.View
             this.Controls.Add(pic1);
             DrawVertLines();
             DrawHorLines();
+            DrawPlayerInfoTable();
         }
 
         private PictureBox DrawLine(int width, int height, Point location)
@@ -64,6 +65,18 @@ namespace ListPoker.View
             {
                 PictureBox pic = DrawLine(250 + players.Count * 280, 1, new Point(0, i * 50 + 110));
                 this.Controls.Add(pic);
+            }
+        }
+
+        private void DrawPlayerInfoTable()
+        {
+            for (var i = 0; i < players.Count; i++)
+            {
+                for (var j = 0; j < 4; j++)
+                {
+                    PictureBox pic = DrawLine(1, 80, new Point(250 + i * 280 + j * 70, 30));
+                    this.Controls.Add(pic);
+                }
             }
         }
     }
