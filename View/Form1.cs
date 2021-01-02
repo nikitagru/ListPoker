@@ -23,7 +23,7 @@ namespace ListPoker
             playersCount = int.Parse((string)comboBox1.SelectedItem);
 
             Distribute distribute = new Distribute(playersCount);
-            distribute.Width = 700;
+            distribute.Width = 500;
             distribute.Height = playersCount * 20 + 200;
             distribute.Show();
         }

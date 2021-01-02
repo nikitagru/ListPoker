@@ -10,6 +10,9 @@ namespace ListPoker
         public string name { get; private set; }
         public int score { get; private set; }
 
-       
+       public Player(string name)
+        {
+            this.name = name;
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace ListPoker
     {
         List<Player> players = new List<Player>();
         Label lastPlayerText;
-        TextBox lastPlayerTextBox;
+        List<TextBox> playerName = new List<TextBox>();
         private int playersCount { get; set; }
         public Distribute(int players)
         {
@@ -24,36 +24,41 @@ namespace ListPoker
 
         private void Distribute_Load(object sender, EventArgs e)
         {
+            DistributeController controller = new DistributeController();
             for (int i = 0; i < playersCount; i++)
             {
-                DistributeController controller = new DistributeController();
                 var playerNameString = controller.drawDistribuion(i, MainFont.font);
                 
                 lastPlayerText = playerNameString.Item1;
-                lastPlayerTextBox = playerNameString.Item2;
-
+                playerName.Add(playerNameString.Item2);
+                
                 this.Controls.Add(playerNameString.Item1);
                 this.Controls.Add(playerNameString.Item2);
             }
-            DrawDistributionHelp(lastPlayerTextBox.Location);
 
             Button select = new Button();
-            select.Location = new Point(lastPlayerText.Location.X + 200 + 300, lastPlayerText.Location.Y + 50);
+            select.Location = new Point(lastPlayerText.Location.X + 150, lastPlayerText.Location.Y + 50);
             select.Text = "Далее";
             this.Controls.Add(select);
+            select.Click += new EventHandler(SelectClick);
 
             Button help = new Button();
-            
+            help.Location = new Point(select.Location.X - 150, select.Location.Y);
+            help.Size = new Size(150, select.Height);
+            help.Text = "Кто такой раздающий?";
+            this.Controls.Add(help);
+            help.Click += new EventHandler(controller.HelpClick);
         }
 
-        private void DrawDistributionHelp(Point nameTextBox)
+        private void SelectClick(object sender, EventArgs e)
         {
-            Label helpText = new Label();
-            helpText.Text = "Раздающим является тот, \nкому выпал туз на жеребьевке ";
-            helpText.Font = MainFont.font;
-            helpText.Location = new Point(nameTextBox.X + 100 + 50, this.Padding.Top + 30);
-            helpText.Size = new Size(200, 100);
-            this.Controls.Add(helpText);
+            DistributeController controller = new DistributeController();
+            players = controller.InitPlayers(players, playersCount, playerName);
+
+            if (players.Count >= 3)
+            {
+
+            }
         }
     }
 }

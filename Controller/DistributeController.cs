@@ -24,5 +24,29 @@ namespace ListPoker.Controller
 
             return playerNameString;
         }
+
+        public void HelpClick(object sender, EventArgs e)
+        {
+            MessageBox.Show("Перед началом игры игроков перетасовывает колоду и начинает раздавать по кругу, пока не выпадет туз.\n" +
+                "Игрок, которому выпал туз, является раздающим.");
+        }
+        
+        public List<Player> InitPlayers(List<Player> players, int playersCount, List<TextBox> playerName)
+        {
+            for (var i = 0; i < playersCount; i++)
+            {
+                if (playerName[i].Text != null && playerName[i].Text != "")
+                {
+                    players.Add(new Player(playerName[i].Text));
+                }
+                else
+                {
+                    MessageBox.Show("Вы не ввели имя игрока");
+                    players = new List<Player>();
+                }
+            }
+
+            return players;
+        }
     }
 }
