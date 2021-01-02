@@ -22,6 +22,7 @@ namespace ListPoker
             this.playersCount = players;
         }
 
+
         private void Distribute_Load(object sender, EventArgs e)
         {
             DistributeController controller = new DistributeController();
@@ -53,11 +54,16 @@ namespace ListPoker
         private void SelectClick(object sender, EventArgs e)
         {
             DistributeController controller = new DistributeController();
-            players = controller.InitPlayers(players, playersCount, playerName);
+            var playerNames = controller.InitPlayers(playerName);
 
-            if (players.Count >= 3)
+            if (playerNames != "")
             {
-
+                PlayTable table = new PlayTable(playerNames);
+                table.Show();
+                this.Hide();
+            } else
+            {
+                MessageBox.Show("Вы не ввели имя игрока или оно является некорректным");
             }
         }
     }

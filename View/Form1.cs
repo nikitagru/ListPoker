@@ -26,6 +26,7 @@ namespace ListPoker
             distribute.Width = 500;
             distribute.Height = playersCount * 20 + 200;
             distribute.Show();
+            this.Hide();
         }
     }
 }

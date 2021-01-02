@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace ListPoker.Controller
@@ -31,22 +32,26 @@ namespace ListPoker.Controller
                 "Игрок, которому выпал туз, является раздающим.");
         }
         
-        public List<Player> InitPlayers(List<Player> players, int playersCount, List<TextBox> playerName)
+        public string InitPlayers(List<TextBox> playerName)
         {
-            for (var i = 0; i < playersCount; i++)
+            var result = "";
+            Regex rgx = new Regex(@"^(?!\s+$).+");
+            for (var i = 0; i < playerName.Count; i++)
             {
-                if (playerName[i].Text != null && playerName[i].Text != "")
+                if (playerName[i].Text != null && playerName[i].Text != "" && rgx.IsMatch(playerName[i].Text))
                 {
-                    players.Add(new Player(playerName[i].Text));
-                }
-                else
+                    result += playerName[i].Text + " ";
+                } else
                 {
-                    MessageBox.Show("Вы не ввели имя игрока");
-                    players = new List<Player>();
+                    result = "";
+                    break;
                 }
             }
-
-            return players;
+            if (result != "")
+            {
+                result = result.Remove(result.Length - 1);
+            }
+            return result;
         }
     }
 }
