@@ -12,7 +12,6 @@ namespace ListPoker
 {
     public partial class Distribute : Form
     {
-        List<Player> players = new List<Player>();
         Label lastPlayerText;
         List<TextBox> playerName = new List<TextBox>();
         private int playersCount { get; set; }

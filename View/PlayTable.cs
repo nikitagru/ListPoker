@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ListPoker.Controller;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,7 +13,12 @@ namespace ListPoker.View
     public partial class PlayTable : Form
     {
         List<Player> players = new List<Player>();
+        // key - current step, value - player and his choice
+        Dictionary<int, Dictionary<Player, TextBox[]>> allPlayersChoice = new Dictionary<int, Dictionary<Player, TextBox[]>>();
         string[] playerInfo = new string[] { "заказ", "темная", "взятка", "итого" };
+        Brush br;
+
+        int currentStep;
         public PlayTable(string playerNames)
         {
             var nameList = playerNames.Split(" ").ToList();
@@ -20,12 +26,38 @@ namespace ListPoker.View
             {
                 players.Add(new Player(nameList[i]));
             }
+
             InitializeComponent();
+            timer1.Interval = 50;
+            timer1.Tick += new EventHandler(Update);
             MakeTable();
             DrawPlayerNames();
             DrawDistributor();
             DrawCardCount();
             DrawPlayerInfo();
+            CreateRoundArea();
+        }
+
+        private void Update(object sender, EventArgs e)
+        {
+            
+            PlayTableController tableController = new PlayTableController();
+            if (!tableController.CheckPlayerInput(allPlayersChoice).Item1)
+            {
+                //Rectangle rectangle = new Rectangle();
+                //rectangle.Width = 40;
+                //rectangle.Height = TableInfo.firstColumnWidth + TableInfo.secondColumnWidth + TableInfo.playerColumnWidth * players.Count;
+                //rectangle.
+                br = new SolidBrush(Color.FromArgb(184, 81, 81));
+                currentStep = tableController.CheckPlayerInput(allPlayersChoice).Item2;
+                
+                this.Paint += Form1_Paint;
+            }
+        }
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        { 
+            if (br != null)
+                e.Graphics.FillRectangle(br, new Rectangle(0, TableInfo.firstRowHeight + TableInfo.secondRowHeight + (currentStep - 1) * TableInfo.roundRowHeight, TableInfo.firstColumnWidth + TableInfo.secondColumnWidth + TableInfo.playerColumnWidth * players.Count, TableInfo.roundRowHeight));
         }
 
         private void MakeTable()
@@ -178,6 +210,31 @@ namespace ListPoker.View
                 {
                     this.Controls.Add(gameLabel.PlayerInfo(j, playerInfo[j], i));
                 }
+            }
+            
+        }
+
+        private void CreateRoundArea()
+        {
+            var maxCards = 36 / players.Count;
+            for (var k = 1; k <= (maxCards - 1) * 2 + players.Count * 2; k++)
+            {
+                Dictionary<Player, TextBox[]> currentPlayerInfo = new Dictionary<Player, TextBox[]>();
+                for (var i = 0; i < players.Count; i++)
+                {
+                    TextBox[] playerInfo = new TextBox[3];
+                    for (var j = 0; j < 3; j++)
+                    {
+                        TextBox playerChoice = new TextBox();
+                        playerChoice.Location = new Point(TableInfo.firstColumnWidth + TableInfo.secondColumnWidth + j * TableInfo.playerInfoColumnWidth + 10 + TableInfo.playerColumnWidth * i,
+                                                            TableInfo.firstRowHeight + TableInfo.secondRowHeight + (k - 1) * TableInfo.roundRowHeight + 10);
+                        playerChoice.Size = new Size(60, 30);
+                        playerInfo[j] = playerChoice;
+                        this.Controls.Add(playerChoice);
+                    }
+                    currentPlayerInfo.Add(players[i], playerInfo);
+                }
+                allPlayersChoice.Add(k, currentPlayerInfo);
             }
             
         }

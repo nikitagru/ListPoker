@@ -20,13 +20,20 @@ namespace ListPoker
 
         private void button1_Click(object sender, EventArgs e)
         {
-            playersCount = int.Parse((string)comboBox1.SelectedItem);
+            if (comboBox1.SelectedItem != null)
+            {
+                playersCount = int.Parse((string)comboBox1.SelectedItem);
 
-            Distribute distribute = new Distribute(playersCount);
-            distribute.Width = 500;
-            distribute.Height = playersCount * 20 + 200;
-            distribute.Show();
-            this.Hide();
+                Distribute distribute = new Distribute(playersCount);
+                distribute.Width = 500;
+                distribute.Height = playersCount * 20 + 200;
+                distribute.Show();
+                this.Hide();
+            } else
+            {
+                MessageBox.Show("Вы должны выбрать количество игроков из предложенных в окне");
+            }
+            
         }
     }
 }
