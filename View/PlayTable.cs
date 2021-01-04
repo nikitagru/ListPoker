@@ -52,15 +52,24 @@ namespace ListPoker.View
                 //rectangle.
                 br = new SolidBrush(Color.FromArgb(184, 81, 81));
                 currentStep = isCorrectUserInput.Item2;
-                Console.WriteLine(currentStep);
-                
+                this.Paint += Form1_Paint;
+            } else
+            {
+                currentStep = -10;
                 this.Paint += Form1_Paint;
             }
         }
         private void Form1_Paint(object sender, PaintEventArgs e)
-        { 
+        {
             if (br != null)
-                e.Graphics.FillRectangle(br, new Rectangle(0, TableInfo.firstRowHeight + TableInfo.secondRowHeight + (currentStep - 1) * TableInfo.roundRowHeight, TableInfo.firstColumnWidth + TableInfo.secondColumnWidth + TableInfo.playerColumnWidth * players.Count, TableInfo.roundRowHeight));
+            {
+                Rectangle rec = new Rectangle(new Point(0, TableInfo.firstRowHeight + TableInfo.secondRowHeight + (currentStep - 1) * TableInfo.roundRowHeight), 
+                    new Size(
+                    TableInfo.firstColumnWidth + TableInfo.secondColumnWidth + TableInfo.playerColumnWidth * players.Count,
+                    TableInfo.roundRowHeight));
+                
+                e.Graphics.FillRectangle(br, rec);
+            }
         }
 
         private void MakeTable()
@@ -230,7 +239,7 @@ namespace ListPoker.View
                     {
                         TextBox playerChoice = new TextBox();
                         playerChoice.Location = new Point(TableInfo.firstColumnWidth + TableInfo.secondColumnWidth + j * TableInfo.playerInfoColumnWidth + 10 + TableInfo.playerColumnWidth * i,
-                                                            TableInfo.firstRowHeight + TableInfo.secondRowHeight + (k - 1) * TableInfo.roundRowHeight + 10);
+                                                            TableInfo.firstRowHeight + TableInfo.secondRowHeight + (k - 1) * TableInfo.roundRowHeight + 7);
                         playerChoice.Size = new Size(60, 30);
                         playerInfo[j] = playerChoice;
                         this.Controls.Add(playerChoice);

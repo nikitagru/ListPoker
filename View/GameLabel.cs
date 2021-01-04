@@ -22,7 +22,7 @@ namespace ListPoker.View
             Label label = new Label();
             label.Text = name;
             label.Font = MainFont.font;
-            label.Location = new Point(TableInfo.firstColumnWidth + 20, TableInfo.firstRowHeight + TableInfo.secondRowHeight + positionIteration * TableInfo.roundRowHeight + 10);
+            label.Location = new Point(TableInfo.firstColumnWidth + 20, TableInfo.firstRowHeight + TableInfo.secondRowHeight + positionIteration * TableInfo.roundRowHeight + 5);
             return label;
         }
 
@@ -31,7 +31,7 @@ namespace ListPoker.View
             Label label = new Label();
             label.Text = counter.ToString();
             label.Font = MainFont.font;
-            label.Location = new Point(20, TableInfo.firstRowHeight + TableInfo.secondRowHeight + positionIteration * TableInfo.roundRowHeight + 10);
+            label.Location = new Point(20, TableInfo.firstRowHeight + TableInfo.secondRowHeight + positionIteration * TableInfo.roundRowHeight + 5);
             return label;
         }
 

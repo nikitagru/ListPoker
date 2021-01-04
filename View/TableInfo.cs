@@ -15,6 +15,6 @@ namespace ListPoker.View
         // Rows
         public static readonly int firstRowHeight = 30;
         public static readonly int secondRowHeight = 50;
-        public static readonly int roundRowHeight = 40;
+        public static readonly int roundRowHeight = 35;
     }
 }
