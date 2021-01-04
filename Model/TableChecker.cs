@@ -29,14 +29,14 @@ namespace ListPoker.Model
                     
                 }
 
-                if (result > item.Key)
+                if (result == item.Key)
                 {
                     isCorrect = false;
+                    return (isCorrect, item.Key);   
                 }
-                return (isCorrect, item.Key);
             }
-
             return (isCorrect, 0);
+            
         }
     }
 }

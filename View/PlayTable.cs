@@ -28,28 +28,31 @@ namespace ListPoker.View
             }
 
             InitializeComponent();
-            timer1.Interval = 50;
-            timer1.Tick += new EventHandler(Update);
             MakeTable();
             DrawPlayerNames();
             DrawDistributor();
             DrawCardCount();
             DrawPlayerInfo();
             CreateRoundArea();
+            timer1.Interval = 500;
+            timer1.Start();
+            timer1.Tick += Update;
         }
 
         private void Update(object sender, EventArgs e)
         {
-            
+            this.Invalidate();
             PlayTableController tableController = new PlayTableController();
-            if (!tableController.CheckPlayerInput(allPlayersChoice).Item1)
+            (bool, int) isCorrectUserInput = tableController.CheckPlayerInput(allPlayersChoice);
+            if (!isCorrectUserInput.Item1)
             {
                 //Rectangle rectangle = new Rectangle();
                 //rectangle.Width = 40;
                 //rectangle.Height = TableInfo.firstColumnWidth + TableInfo.secondColumnWidth + TableInfo.playerColumnWidth * players.Count;
                 //rectangle.
                 br = new SolidBrush(Color.FromArgb(184, 81, 81));
-                currentStep = tableController.CheckPlayerInput(allPlayersChoice).Item2;
+                currentStep = isCorrectUserInput.Item2;
+                Console.WriteLine(currentStep);
                 
                 this.Paint += Form1_Paint;
             }
@@ -236,7 +239,6 @@ namespace ListPoker.View
                 }
                 allPlayersChoice.Add(k, currentPlayerInfo);
             }
-            
         }
     }
 }
