@@ -15,9 +15,11 @@ namespace ListPoker.View
         List<Player> players = new List<Player>();
         // key - current step, value - player and his choice
         Dictionary<int, Dictionary<Player, TextBox[]>> allPlayersChoice = new Dictionary<int, Dictionary<Player, TextBox[]>>();
+        Dictionary<int, List<Label>> playersResults = new Dictionary<int, List<Label>>();
+        
         string[] playerInfo = new string[] { "заказ", "темная", "взятка", "итого" };
         Brush br;
-
+        
         int currentStep;
         public PlayTable(string playerNames)
         {
@@ -26,7 +28,7 @@ namespace ListPoker.View
             {
                 players.Add(new Player(nameList[i]));
             }
-
+            
             InitializeComponent();
             MakeTable();
             DrawPlayerNames();
@@ -34,7 +36,8 @@ namespace ListPoker.View
             DrawCardCount();
             DrawPlayerInfo();
             CreateRoundArea();
-            timer1.Interval = 500;
+            CreateResultLabels();
+            timer1.Interval = 10000;
             timer1.Start();
             timer1.Tick += Update;
         }
@@ -46,10 +49,6 @@ namespace ListPoker.View
             (bool, int) isCorrectUserInput = tableController.CheckPlayerInput(allPlayersChoice);
             if (!isCorrectUserInput.Item1)
             {
-                //Rectangle rectangle = new Rectangle();
-                //rectangle.Width = 40;
-                //rectangle.Height = TableInfo.firstColumnWidth + TableInfo.secondColumnWidth + TableInfo.playerColumnWidth * players.Count;
-                //rectangle.
                 br = new SolidBrush(Color.FromArgb(184, 81, 81));
                 currentStep = isCorrectUserInput.Item2;
                 this.Paint += Form1_Paint;
@@ -57,6 +56,8 @@ namespace ListPoker.View
             {
                 currentStep = -10;
                 this.Paint += Form1_Paint;
+                (int, List<int>) results = tableController.CalculatePlayersScore(allPlayersChoice, playersResults);
+                ShowResults(results);
             }
         }
         private void Form1_Paint(object sender, PaintEventArgs e)
@@ -104,7 +105,7 @@ namespace ListPoker.View
                                                                             new Point(TableInfo.firstColumnWidth, 0));
             Label label = new Label();
             label.Text = "Раунд";
-            label.Location = new Point(vertLine.Location.X - 85, 45);
+            label.Location = new Point(vertLine.Location.X - 85, TableInfo.firstRowHeight);
             label.Size = new Size(80, 29);
             label.Font = MainFont.font;
             this.Controls.Add(label);
@@ -113,7 +114,7 @@ namespace ListPoker.View
                                                                             new Point(vertLine.Location.X + TableInfo.secondColumnWidth, 0));
             Label label1 = new Label();
             label1.Text = "Раздающий";
-            label1.Location = new Point(vertLine1.Location.X - 130, 45);
+            label1.Location = new Point(vertLine1.Location.X - 130, TableInfo.firstRowHeight);
             label1.Size = new Size(129, 29);
             label1.Font = MainFont.font;
             this.Controls.Add(label1);
@@ -136,7 +137,7 @@ namespace ListPoker.View
             for (var i = 0; i < (maxCards - 1) * 2 + players.Count * 2; i++)
             {
                 PictureBox pic = DrawLine(TableInfo.firstColumnWidth + TableInfo.secondColumnWidth + players.Count * TableInfo.playerColumnWidth, 
-                                                                        1, new Point(0, i * TableInfo.roundRowHeight + TableInfo.playerInfoColumnWidth));
+                                                                        1, new Point(0, i * TableInfo.roundRowHeight + TableInfo.firstRowHeight + TableInfo.secondRowHeight));
                 this.Controls.Add(pic);
             }
         }
@@ -223,7 +224,6 @@ namespace ListPoker.View
                     this.Controls.Add(gameLabel.PlayerInfo(j, playerInfo[j], i));
                 }
             }
-            
         }
 
         private void CreateRoundArea()
@@ -239,7 +239,7 @@ namespace ListPoker.View
                     {
                         TextBox playerChoice = new TextBox();
                         playerChoice.Location = new Point(TableInfo.firstColumnWidth + TableInfo.secondColumnWidth + j * TableInfo.playerInfoColumnWidth + 10 + TableInfo.playerColumnWidth * i,
-                                                            TableInfo.firstRowHeight + TableInfo.secondRowHeight + (k - 1) * TableInfo.roundRowHeight + 7);
+                                                            TableInfo.firstRowHeight + TableInfo.secondRowHeight + (k - 1) * TableInfo.roundRowHeight + 6);
                         playerChoice.Size = new Size(60, 30);
                         playerInfo[j] = playerChoice;
                         this.Controls.Add(playerChoice);
@@ -248,6 +248,40 @@ namespace ListPoker.View
                 }
                 allPlayersChoice.Add(k, currentPlayerInfo);
             }
+        }
+
+        private void CreateResultLabels()
+        {
+            var maxCards = 36 / players.Count;
+            for (var k = 1; k <= (maxCards - 1) * 2 + players.Count * 2; k++)
+            {
+                List<Label> stepResults = new List<Label>();
+                for (var i = 1; i <= players.Count; i++)
+                {
+                    Label label = new Label();
+                    label.Font = MainFont.font;
+                    label.Location = new Point(TableInfo.firstColumnWidth + TableInfo.secondColumnWidth + i * TableInfo.playerColumnWidth - TableInfo.playerInfoColumnWidth,
+                                                TableInfo.firstRowHeight + TableInfo.secondRowHeight + (k - 1) * TableInfo.roundRowHeight);
+                    this.Controls.Add(label);
+                    stepResults.Add(label);
+                }
+                playersResults.Add(k, stepResults);
+            }
+        }
+
+        private void ShowResults((int, List<int>) results)
+        {
+            for (var i = 0; i < results.Item2.Count; i++)
+            {
+                if (results.Item1 == 1)
+                {
+                    playersResults[results.Item1][i].Text = results.Item2[i].ToString();
+                } else
+                {
+                    playersResults[results.Item1][i].Text = (int.Parse(playersResults[results.Item1 - 1][i].Text) + results.Item2[i]).ToString();
+                }
+            }
+
         }
     }
 }

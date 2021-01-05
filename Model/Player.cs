@@ -7,8 +7,8 @@ namespace ListPoker
 {
     class Player
     {
-        public string name { get; private set; }
-        public int score { get; private set; }
+        public string name { get; set; }
+        public int score { get; set; }
 
        public Player(string name)
         {

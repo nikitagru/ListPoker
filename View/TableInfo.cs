@@ -13,8 +13,8 @@ namespace ListPoker.View
         public static readonly int playerInfoColumnWidth = playerColumnWidth / 4;
         
         // Rows
-        public static readonly int firstRowHeight = 30;
-        public static readonly int secondRowHeight = 50;
-        public static readonly int roundRowHeight = 35;
+        public static readonly int firstRowHeight = 25;
+        public static readonly int secondRowHeight = 30;
+        public static readonly int roundRowHeight = 34;
     }
 }

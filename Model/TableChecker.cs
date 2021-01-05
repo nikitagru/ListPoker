@@ -16,6 +16,7 @@ namespace ListPoker.Model
                 var result = 0;
                 var sum = 0;
                 var playersGets = 0;
+                var playerChoices = new List<int>();
                 foreach (var item1 in item.Value)
                 {
                     for (var i = 0; i < 2; i++)
@@ -24,11 +25,15 @@ namespace ListPoker.Model
                         if (success)
                         {
                             result += int.Parse(item1.Value[i].Text);
+                            playerChoices.Add(int.Parse(item1.Value[i].Text));
                             break;
                         }
-                        
                     }
-                    
+                    if (playerChoices.Count > item.Value.Count)
+                    {
+                        isCorrect = false;
+                        return (isCorrect, item.Key);
+                    }
                     var currentPlayerGet = 0;
                     var isNotEmpty = int.TryParse(item1.Value[2].Text, out currentPlayerGet);
                     if (isNotEmpty)
@@ -36,8 +41,6 @@ namespace ListPoker.Model
                         playersGets += int.Parse(item1.Value[2].Text);
                     }
                 }
-
-
 
                 if (result == item.Key || playersGets > item.Key)
                 {

@@ -44,5 +44,15 @@ namespace ListPoker.View
             label.Location = new Point(TableInfo.firstColumnWidth + TableInfo.secondColumnWidth + currentPlayer * TableInfo.playerColumnWidth + TableInfo.playerInfoColumnWidth * positionIteration + 15, TableInfo.roundRowHeight);
             return label;
         }
+
+        public Label PlayerScore(int score, int currentPlayerPosition, int currentStep)
+        {
+            Label label = new Label();
+            label.Font = MainFont.font;
+            label.Text = score.ToString();
+            label.Location = new Point(TableInfo.firstColumnWidth + TableInfo.secondColumnWidth + currentPlayerPosition * TableInfo.playerColumnWidth - TableInfo.playerInfoColumnWidth,
+                                            TableInfo.firstRowHeight + TableInfo.secondRowHeight + (currentStep - 1) * TableInfo.roundRowHeight);
+            return label;
+        }
     }
 }
