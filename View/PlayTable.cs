@@ -54,10 +54,15 @@ namespace ListPoker.View
                 this.Paint += Form1_Paint;
             } else
             {
+                
                 currentStep = -10;
                 this.Paint += Form1_Paint;
                 (int, List<int>) results = tableController.CalculatePlayersScore(allPlayersChoice, playersResults);
-                ShowResults(results);
+                
+                if (results.Item1 != 0)
+                {
+                    ShowResults(results);
+                }
             }
         }
         private void Form1_Paint(object sender, PaintEventArgs e)
