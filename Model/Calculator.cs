@@ -9,24 +9,20 @@ namespace ListPoker.Model
     {
         
         Dictionary<int, List<int>> newResults = new Dictionary<int, List<int>>();
-        public Dictionary<int, List<int>> CalculateScore(Dictionary<int, Dictionary<Player, TextBox[]>> allPlayersChoice, Dictionary<int, List<Label>> playersResults)
+        public Dictionary<int, List<int>> CalculateScore(Dictionary<int, Dictionary<Player, TextBox[]>> allPlayersChoice)
         {
             foreach (var item in allPlayersChoice)
             {
                 List<int> results = new List<int>();
-                foreach (var item1 in item.Value)
+                foreach (var item1 in item.Value)       // item1.Key - player
                 {
-                    
+                    bool success;
                     if ((item1.Value[0].Text != "" || item1.Value[1].Text != "") && item1.Value[2].Text != "")
                     {
-                        if (item.Key == 3)
-                        {
-                            Console.WriteLine();
-                        }
                         int playerWish;
-                        bool success = int.TryParse(item1.Value[0].Text, out playerWish);
+                        success = int.TryParse(item1.Value[0].Text, out playerWish);
                         
-                        if (!success && playerWish != 0)
+                        if (!success)
                         {
                             playerWish = int.Parse(item1.Value[1].Text) * 2;
                         }
@@ -50,6 +46,10 @@ namespace ListPoker.Model
                             else
                             {
                                 results.Add(playerGets * 2);
+                            }
+                            if (!success)
+                            {
+                                results[results.Count - 1] *= 2;
                             }
                         }
                     } else

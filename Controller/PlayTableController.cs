@@ -17,7 +17,7 @@ namespace ListPoker.Controller
         public Dictionary<int, List<int>> CalculatePlayersScore(Dictionary<int, Dictionary<Player, TextBox[]>> allPlayersChoice, Dictionary<int, List<Label>> playersResults)
         {
             Calculator calculator = new Calculator();
-            return calculator.CalculateScore(allPlayersChoice, playersResults);
+            return calculator.CalculateScore(allPlayersChoice);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace ListPoker
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedItem != null)
+            if (comboBox1.SelectedItem != null)     // if selected the item from collection
             {
                 playersCount = int.Parse((string)comboBox1.SelectedItem);
 

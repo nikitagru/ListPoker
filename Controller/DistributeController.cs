@@ -9,6 +9,12 @@ namespace ListPoker.Controller
 {
     class DistributeController
     {
+        /// <summary>
+        /// Creating text boxes for player names
+        /// </summary>
+        /// <param name="i">number of the player</param>
+        /// <param name="font">Main font</param>
+        /// <returns>Label with player role and a place for input</returns>
         public (Label, TextBox) drawDistribuion(int i, Font font)
         {
             Label label = new Label();
@@ -32,10 +38,15 @@ namespace ListPoker.Controller
                 "Игрок, которому выпал туз, является раздающим.");
         }
         
+        /// <summary>
+        /// Init players
+        /// </summary>
+        /// <param name="playerName">player names from second window</param>
+        /// <returns></returns>
         public string InitPlayers(List<TextBox> playerName)
         {
             var result = "";
-            Regex rgx = new Regex(@"^(?!\s+$).+");
+            Regex rgx = new Regex(@"[^\s]{0,}$");       // anyone string without spaces
             for (var i = 0; i < playerName.Count; i++)
             {
                 if (playerName[i].Text != null && playerName[i].Text != "" && rgx.IsMatch(playerName[i].Text))

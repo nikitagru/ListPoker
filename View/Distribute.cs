@@ -12,7 +12,7 @@ namespace ListPoker
 {
     public partial class Distribute : Form
     {
-        Label lastPlayerText;
+        Label lastPlayerText;       // the player role
         List<TextBox> playerName = new List<TextBox>();
         private int playersCount { get; set; }
 
@@ -39,13 +39,13 @@ namespace ListPoker
                 this.Controls.Add(playerNameString.Item2);
             }
 
-            Button select = new Button();
+            Button select = new Button();       // a button to confirm player names
             select.Location = new Point(lastPlayerText.Location.X + 150, lastPlayerText.Location.Y + 50);
             select.Text = "Далее";
             this.Controls.Add(select);
             select.Click += new EventHandler(SelectClick);
 
-            Button help = new Button();
+            Button help = new Button();     // show information about distributor
             help.Location = new Point(select.Location.X - 150, select.Location.Y);
             help.Size = new Size(150, select.Height);
             help.Text = "Кто такой раздающий?";
@@ -58,7 +58,7 @@ namespace ListPoker
             DistributeController controller = new DistributeController();
             var playerNames = controller.InitPlayers(playerName);
 
-            if (playerNames != "")
+            if (playerNames != "")      // if player name is correct
             {
                 PlayTable table = new PlayTable(playerNames, form);
                 table.Show();

@@ -12,9 +12,10 @@ namespace ListPoker.View
 {
     public partial class PlayTable : Form
     {
-        List<Player> players = new List<Player>();
+        List<Player> players = new List<Player>();      
         // key - current step, value - player and his choice
         Dictionary<int, Dictionary<Player, TextBox[]>> allPlayersChoice = new Dictionary<int, Dictionary<Player, TextBox[]>>();
+        // key - current step, value - player score
         Dictionary<int, List<Label>> playersResults = new Dictionary<int, List<Label>>();
         
         string[] playerInfo = new string[] { "заказ", "темная", "взятка", "итого" };
@@ -51,6 +52,11 @@ namespace ListPoker.View
             form1.Show();
         }
 
+        /// <summary>
+        /// Event, which recalculating players score
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Update(object sender, EventArgs e)
         {
             this.Invalidate();
@@ -85,6 +91,9 @@ namespace ListPoker.View
             }
         }
 
+        /// <summary>
+        /// Creating main table (base grid)
+        /// </summary>
         private void MakeTable()
         {
             PictureBox pic = DrawLine(TableInfo.firstColumnWidth + TableInfo.secondColumnWidth + players.Count * TableInfo.playerColumnWidth, 
@@ -100,6 +109,13 @@ namespace ListPoker.View
             DrawPlayerInfoTable();
         }
 
+        /// <summary>
+        /// Draw a line
+        /// </summary>
+        /// <param name="width">line width</param>
+        /// <param name="height">line height</param>
+        /// <param name="location">line position</param>
+        /// <returns>returns a line with input params</returns>
         private PictureBox DrawLine(int width, int height, Point location)
         {
             PictureBox pic = new PictureBox();
@@ -110,6 +126,9 @@ namespace ListPoker.View
             return pic;
         }
 
+        /// <summary>
+        /// Drawing vert lines in the table (player column, round and column with distributor name)
+        /// </summary>
         private void DrawVertLines()
         {
             var maxCards = 36 / players.Count;
@@ -143,6 +162,9 @@ namespace ListPoker.View
             }
         }
 
+        /// <summary>
+        /// Drawing horizontal lines in the table (lines for every step of the game)
+        /// </summary>
         private void DrawHorLines()
         {
             var maxCards = 36 / players.Count;
@@ -154,6 +176,9 @@ namespace ListPoker.View
             }
         }
 
+        /// <summary>
+        /// Divide a player column on 4 parts
+        /// </summary>
         private void DrawPlayerInfoTable()
         {
             var maxCards = 36 / players.Count;
@@ -167,6 +192,7 @@ namespace ListPoker.View
             }
         }
 
+       
         private void DrawPlayerNames()
         {
             GameLabel gameLabel = new GameLabel();
@@ -176,7 +202,9 @@ namespace ListPoker.View
             }
         }
 
-
+        /// <summary>
+        /// Draws a distributor for every step
+        /// </summary>
         private void DrawDistributor()
         {
             var maxCards = 36 / players.Count;
@@ -193,6 +221,9 @@ namespace ListPoker.View
             }
         }
 
+        /// <summary>
+        /// Draws information about cards for current step
+        /// </summary>
         private void DrawCardCount()
         {
             var maxCards = 36 / players.Count;
@@ -238,6 +269,9 @@ namespace ListPoker.View
             }
         }
 
+        /// <summary>
+        /// Creates places for player's inputs
+        /// </summary>
         private void CreateRoundArea()
         {
             var maxCards = 36 / players.Count;
@@ -262,6 +296,9 @@ namespace ListPoker.View
             }
         }
 
+        /// <summary>
+        /// Creates places for player results
+        /// </summary>
         private void CreateResultLabels()
         {
             var maxCards = 36 / players.Count;
@@ -281,21 +318,10 @@ namespace ListPoker.View
             }
         }
 
-        private void ShowResults((int, List<int>) results)
-        {
-            for (var i = 0; i < results.Item2.Count; i++)
-            {
-                if (results.Item1 == 1)
-                {
-                    playersResults[results.Item1][i].Text = results.Item2[i].ToString();
-                } else
-                {
-                    playersResults[results.Item1][i].Text = (int.Parse(playersResults[results.Item1 - 1][i].Text) + results.Item2[i]).ToString();
-                }
-            }
-
-        }
-
+        /// <summary>
+        /// Drawing results
+        /// </summary>
+        /// <param name="results">results for current step</param>
         private void ShowResults(Dictionary<int, List<int>> results)
         {
             foreach(var item in playersResults)
