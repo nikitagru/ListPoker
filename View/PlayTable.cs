@@ -21,15 +21,18 @@ namespace ListPoker.View
         Brush br;
         
         int currentStep;
-        public PlayTable(string playerNames)
+
+        Form1 form1;
+        public PlayTable(string playerNames, Form1 form)
         {
             var nameList = playerNames.Split(" ").ToList();
             for (var i = 0; i < nameList.Count; i++)
             {
                 players.Add(new Player(nameList[i]));
             }
-            
+            this.form1 = form;
             InitializeComponent();
+            
             MakeTable();
             DrawPlayerNames();
             DrawDistributor();
@@ -37,9 +40,15 @@ namespace ListPoker.View
             DrawPlayerInfo();
             CreateRoundArea();
             CreateResultLabels();
-            timer1.Interval = 8000;
+            timer1.Interval = 500;
             timer1.Start();
             timer1.Tick += Update;
+            this.FormClosing += PlayTable_FormClosing;
+        }
+
+        private void PlayTable_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            form1.Show();
         }
 
         private void Update(object sender, EventArgs e)
@@ -293,7 +302,7 @@ namespace ListPoker.View
             {
                 for (var i = 0; i < players.Count; i++)
                 {
-                    if (results[item.Key].Count > 2)
+                    if (results[item.Key].Count == players.Count)
                     {
                         if (item.Key == 1)
                         {

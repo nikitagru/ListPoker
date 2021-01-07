@@ -15,10 +15,13 @@ namespace ListPoker
         Label lastPlayerText;
         List<TextBox> playerName = new List<TextBox>();
         private int playersCount { get; set; }
-        public Distribute(int players)
+
+        private Form1 form;
+        public Distribute(int players, Form1 form)
         {
             InitializeComponent();
             this.playersCount = players;
+            this.form = form;
         }
 
 
@@ -57,7 +60,7 @@ namespace ListPoker
 
             if (playerNames != "")
             {
-                PlayTable table = new PlayTable(playerNames);
+                PlayTable table = new PlayTable(playerNames, form);
                 table.Show();
                 this.Hide();
             } else

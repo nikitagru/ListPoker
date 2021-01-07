@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace ListPoker.Model
@@ -17,6 +18,8 @@ namespace ListPoker.Model
                 var sum = 0;
                 var playersGets = 0;
                 var playerChoices = new List<int>();
+                bool isString = false;
+                Regex rgx = new Regex(@"^[0-9]+$");
                 foreach (var item1 in item.Value)
                 {
                     for (var i = 0; i < 2; i++)
@@ -28,8 +31,12 @@ namespace ListPoker.Model
                             playerChoices.Add(int.Parse(item1.Value[i].Text));
                             break;
                         }
+                        if (!rgx.IsMatch(item1.Value[i].Text))
+                        {
+                            isString = true;
+                        }
                     }
-                    if (playerChoices.Count > item.Value.Count)
+                    if (playerChoices.Count > item.Value.Count && item1.Value[1].Text == "0")
                     {
                         isCorrect = false;
                         return (isCorrect, item.Key);

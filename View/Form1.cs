@@ -24,7 +24,7 @@ namespace ListPoker
             {
                 playersCount = int.Parse((string)comboBox1.SelectedItem);
 
-                Distribute distribute = new Distribute(playersCount);
+                Distribute distribute = new Distribute(playersCount, this);
                 distribute.Width = 500;
                 distribute.Height = playersCount * 20 + 200;
                 distribute.Show();

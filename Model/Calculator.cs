@@ -16,21 +16,21 @@ namespace ListPoker.Model
                 List<int> results = new List<int>();
                 foreach (var item1 in item.Value)
                 {
-                    if (item.Key == 2)
-                    {
-                        Console.WriteLine();
-                    }
+                    
                     if ((item1.Value[0].Text != "" || item1.Value[1].Text != "") && item1.Value[2].Text != "")
                     {
-                        var playerWish = 0;
-                        for (var i = 0; i < 2; i++)
+                        if (item.Key == 3)
                         {
-                            bool success = int.TryParse(item1.Value[i].Text, out playerWish);
-                            if (success)
-                            {
-                                break;
-                            }
+                            Console.WriteLine();
                         }
+                        int playerWish;
+                        bool success = int.TryParse(item1.Value[0].Text, out playerWish);
+                        
+                        if (!success && playerWish != 0)
+                        {
+                            playerWish = int.Parse(item1.Value[1].Text) * 2;
+                        }
+
                         int playerGets;
                         var isNotEmpty = int.TryParse(item1.Value[2].Text, out playerGets);
                         if (isNotEmpty)
@@ -57,25 +57,7 @@ namespace ListPoker.Model
                         break;
                     }
                 }
-                //var isCurrentStep = false;
-                //for (var i = 0; i < playersResults[item.Key].Count; i++)
-                //{
-                //    if (playersResults[item.Key][i].Text != "")
-                //    {
-                //        isCurrentStep = false;
-                //        break;
-                //    } else
-                //    {
-                //        isCurrentStep = true;
-                //    }
-                //}
-                //if (isCurrentStep && results.Count == item.Value.Count)
-                //{
-                //    return (item.Key, results);
-                //}
-
                 newResults.Add(item.Key, results);
-                //results.Clear();
             }
             return newResults;
         }
