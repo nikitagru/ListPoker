@@ -14,7 +14,7 @@ namespace ListPoker.Controller
             return tableChecker.CheckPlayerInfo(allPlayersChoice);
         }
 
-        public (int, List<int>) CalculatePlayersScore(Dictionary<int, Dictionary<Player, TextBox[]>> allPlayersChoice, Dictionary<int, List<Label>> playersResults)
+        public Dictionary<int, List<int>> CalculatePlayersScore(Dictionary<int, Dictionary<Player, TextBox[]>> allPlayersChoice, Dictionary<int, List<Label>> playersResults)
         {
             Calculator calculator = new Calculator();
             return calculator.CalculateScore(allPlayersChoice, playersResults);

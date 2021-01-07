@@ -37,7 +37,7 @@ namespace ListPoker.View
             DrawPlayerInfo();
             CreateRoundArea();
             CreateResultLabels();
-            timer1.Interval = 10000;
+            timer1.Interval = 8000;
             timer1.Start();
             timer1.Tick += Update;
         }
@@ -57,12 +57,10 @@ namespace ListPoker.View
                 
                 currentStep = -10;
                 this.Paint += Form1_Paint;
-                (int, List<int>) results = tableController.CalculatePlayersScore(allPlayersChoice, playersResults);
-                
-                if (results.Item1 != 0)
-                {
-                    ShowResults(results);
-                }
+                Dictionary<int, List<int>> results = tableController.CalculatePlayersScore(allPlayersChoice, playersResults);
+
+                ShowResults(results);
+                this.Invalidate();
             }
         }
         private void Form1_Paint(object sender, PaintEventArgs e)
@@ -287,6 +285,26 @@ namespace ListPoker.View
                 }
             }
 
+        }
+
+        private void ShowResults(Dictionary<int, List<int>> results)
+        {
+            foreach(var item in playersResults)
+            {
+                for (var i = 0; i < players.Count; i++)
+                {
+                    if (results[item.Key].Count > 2)
+                    {
+                        if (item.Key == 1)
+                        {
+                            playersResults[item.Key][i].Text = results[item.Key][i].ToString();
+                        } else
+                        {
+                            playersResults[item.Key][i].Text = (int.Parse(playersResults[item.Key - 1][i].Text) + results[item.Key][i]).ToString(); 
+                        }
+                    }
+                }
+            }
         }
     }
 }
