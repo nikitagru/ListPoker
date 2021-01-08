@@ -32,11 +32,15 @@
             // 
             // Distribute
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(798, 449);
+            this.ClientSize = new System.Drawing.Size(912, 599);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Distribute";
-            this.Text = "Distribute";
+            this.Text = "Раздаюший";
             this.Load += new System.EventHandler(this.Distribute_Load);
             this.ResumeLayout(false);
 

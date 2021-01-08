@@ -275,7 +275,8 @@ namespace ListPoker.View
         private void CreateRoundArea()
         {
             var maxCards = 36 / players.Count;
-            for (var k = 1; k <= (maxCards - 1) * 2 + players.Count * 2; k++)
+            var iterationCount = (maxCards - 1) * 2 + players.Count * 2;
+            for (var k = 1; k <= iterationCount; k++)
             {
                 Dictionary<Player, TextBox[]> currentPlayerInfo = new Dictionary<Player, TextBox[]>();
                 for (var i = 0; i < players.Count; i++)
@@ -287,6 +288,10 @@ namespace ListPoker.View
                         playerChoice.Location = new Point(TableInfo.firstColumnWidth + TableInfo.secondColumnWidth + j * TableInfo.playerInfoColumnWidth + 10 + TableInfo.playerColumnWidth * i,
                                                             TableInfo.firstRowHeight + TableInfo.secondRowHeight + (k - 1) * TableInfo.roundRowHeight + 6);
                         playerChoice.Size = new Size(60, 30);
+                        if (iterationCount - k <= players.Count && j == 0)
+                        {
+                            playerChoice.ReadOnly = true;
+                        }
                         playerInfo[j] = playerChoice;
                         this.Controls.Add(playerChoice);
                     }

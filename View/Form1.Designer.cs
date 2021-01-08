@@ -39,9 +39,9 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(133, 28);
+            this.label1.Location = new System.Drawing.Point(152, 37);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(163, 25);
+            this.label1.Size = new System.Drawing.Size(205, 32);
             this.label1.TabIndex = 0;
             this.label1.Text = "Расписной покер";
             // 
@@ -53,18 +53,19 @@
             "4",
             "5",
             "6"});
-            this.comboBox1.Location = new System.Drawing.Point(170, 84);
+            this.comboBox1.Location = new System.Drawing.Point(194, 112);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(43, 23);
+            this.comboBox1.Size = new System.Drawing.Size(49, 28);
             this.comboBox1.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(115, 82);
+            this.label2.Location = new System.Drawing.Point(131, 109);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(34, 25);
+            this.label2.Size = new System.Drawing.Size(40, 30);
             this.label2.TabIndex = 2;
             this.label2.Text = "На";
             // 
@@ -72,17 +73,18 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(237, 83);
+            this.label3.Location = new System.Drawing.Point(271, 111);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(81, 25);
+            this.label3.Size = new System.Drawing.Size(96, 30);
             this.label3.TabIndex = 3;
             this.label3.Text = "игроков";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(327, 139);
+            this.button1.Location = new System.Drawing.Point(374, 185);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(86, 31);
             this.button1.TabIndex = 4;
             this.button1.Text = "Далее";
             this.button1.UseVisualStyleBackColor = true;
@@ -90,14 +92,18 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(414, 174);
+            this.ClientSize = new System.Drawing.Size(473, 232);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
             this.Text = "Расписной покер";
             this.ResumeLayout(false);
