@@ -288,7 +288,7 @@ namespace ListPoker.View
                         playerChoice.Location = new Point(TableInfo.firstColumnWidth + TableInfo.secondColumnWidth + j * TableInfo.playerInfoColumnWidth + 10 + TableInfo.playerColumnWidth * i,
                                                             TableInfo.firstRowHeight + TableInfo.secondRowHeight + (k - 1) * TableInfo.roundRowHeight + 6);
                         playerChoice.Size = new Size(60, 30);
-                        if (iterationCount - k <= players.Count && j == 0)
+                        if (iterationCount - k < players.Count && j == 0)
                         {
                             playerChoice.ReadOnly = true;
                         }
